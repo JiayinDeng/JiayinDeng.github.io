@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邓家寅的个人网站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 20%;
+            background: #354f68;
+            color: #fff;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .sidebar img {
+            border-radius: 50%;
+            width: 125px;
+            height: 175px;
+        }
+        .sidebar h2, .sidebar p {
+            margin: 10px 0;
+        }
+        .content {
+            width: 80%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .content h1, .content p {
+            margin: 0 0 20px;
+        }
+        .projects {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .project {
+            width: 48%;
+            margin: 1%;
+            background: #ecf0f1;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column; /* 使用 flex 布局使内容垂直排列 */
+        }
+        .project h3 {
+            margin: 0 0 10px;
+        }
+        .project img {
+            width: 100%;
+            margin-bottom: 10px; /* 图片底部留出一些间距 */
+        }
+        .project p {
+            margin-bottom: 10px; /* 段落底部留出一些间距 */
+            flex: 1; /* 让段落填充剩余空间 */
+        }
+        .project a {
+            margin-top: auto;
+            color: #0366d6;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="assets/证件照-小.jpg" alt="邓家寅">
+        <h2>邓家寅</h2>
+        <p>毕业院校: 北京邮电大学</p>
+        <p>学历: 博士研究生</p>
+        <p>邮箱: jiayindeng@bupt.edu.cn</p>
+    </div>
+    <div class="content">
+        <h1>个人简介</h1>
+        <p>我本科毕业于北京邮电大学，通信工程专业（2016-2020）。目前在北京邮电大学攻读信息与通信工程博士学位。我的研究兴趣涵盖目标跟踪、毫米波雷达与视觉融合、传感器标定、雷达信号处理、机器学习和概率论。</p>
+        <h1>作品展示</h1>
+        <div class="projects">
+            <div class="project">
+                <img src="assets/carla_collect_kps.jpg">
+                <h3>Carla数据集自动采集</h3>
+                <p>使用Carla仿真软件，在地图中的三个位置安装了路侧传感进行观测。输出结果包括单目摄像头图像数据、摄像头参数以及标签数据。标签数据涵盖每辆车的真实3D位置、速度、加速度、姿态、长宽高，以及车辆关键点的像素坐标和3D坐标，每辆车包含24个关键点。此外，还可以自定义单一车辆的运动轨迹，并采集测试数据。</p>
+                <a href="https://github.com/JiayinDeng/collect_carla" target="_blank">GitHub Link</a>
+            </div>
+            <div class="project">
+                <img src="assets/skeleton_DAIR-V2X.png">
+                <h3>基于openpifpaf算法在Carla数据集上训练的模型权重</h3>
+                <p>我使用Carla数据集自动采集工具获取训练数据，并根据openpifpaf算法官方介绍文档（https://openpifpaf.github.io/intro.html）进行模型训练。训练后的模型参数和使用方法详见下方的GitHub链接。此外，我还测试了算法在真实场景路侧数据集（DAIR-V2X）上的表现，详情同样可参考下述GitHub链接。</p>
+                <a href="https://github.com/RadarCameraFusionTeam-BUPT/openpifpaf_carla_keypoints" target="_blank">GitHub Link</a>
+            </div>
+            <div class="project">
+                <img src="assets/位姿标定.png">
+                <h3>全自动传感器位姿标定（FusionCalib）</h3>
+                <p>我首次提出了一种用于路侧雷视一体传感器的自动位姿标定方法，旨在降低人工成本，提高设备位姿标定精度。该方法利用雷达和相机之间的交叉参考信息，在没有任何附加工具或先验信息的情况下，实现了位姿标定。融合的核心思想是将视觉检测的二维像素轨迹与雷达检测的三维速度融合提取三维道路平面特征，利用三维道路平面特征重建道路平面来获取传感器相对于路面的位置和姿态，从而实现位姿标定。</p>
+                <a href="https://github.com/RadarCameraFusionTeam-BUPT/FusionCalib" target="_blank">GitHub Link</a>
+            </div>
+            <div class="project">
+                <img src="assets/ES-EOT_turn_around.gif">
+                <h3>基于弹性骨架的三维扩展目标跟踪（ES-EOT）</h3>
+                <p>为了解决路侧场景下面临的毫米波雷达点云稀疏，以及缺乏3D标注难以直接端到端训练的问题，我提出一种全新的毫米波雷达和视觉融合方案，该方法基于联合检测与跟踪（JDT）策略，融合雷达3D点云和2D像素关键点检测结果，最终实现3D目标的运动学和形态跟踪。主要贡献在于：1）提出了球面高斯函数加权高斯混合模型（SGW-GMM）雷达测量模型，用以刻画点云稀疏的特性；2）提出了一种弹性骨架（ES）融合机制，用来融合视觉和雷达检测结果；3）提出了一种简单而有效的基于四元数代数的CTRV运动模型来描述车辆的机动特性。</p>
+                <a href="https://github.com/RadarCameraFusionTeam-BUPT/ES-EOT" target="_blank">GitHub Link (simulation)</a>
+                <a href="https://github.com/RadarCameraFusionTeam-BUPT/ES-EOT-real-nuscenes" target="_blank">GitHub Link (one of the Nuscenes scenes)</a>
+            </div>
+            <div class="project">
+                <img src="assets/combine_anno_image.png">
+                <h3>基于弹性骨架的三维多扩展目标跟踪（ES-MEOT）</h3>
+                <p>该工作扩展了单扩展目标跟踪算法ES-EOT，在不依赖任何3D标注的情况下，实现了三维多扩展目标跟踪（同时跟踪目标的位置和形状）。</p>
+                <a href="https://github.com/RadarCameraFusionTeam-BUPT/ES-MEOT" target="_blank">GitHub Link</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
